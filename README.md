@@ -23,7 +23,9 @@ Select "This Firefox" --> "Load Temporary Add-on"
 
 ### Chrome
 
-Menu --> More Tool --> Extensions --> Load unpacked --> Select repository folder
+"Menu" --> "More Tool" --> "Extensions"
+
+Then toggle the "Developer mode" button (top right), click on "Load unpacked" and select the repository folder.
 
 ## SAMP Developer notes
 
