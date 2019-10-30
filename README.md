@@ -58,13 +58,15 @@ All the XHR functions are translated into asynchrous [custom events](https://dev
 Differences encountered between Firefox and Chrome:
 
 * Runtime API has different prefix (`browser.runtime` vs `chrome.runtime`)
-* Firefox allows cross-origin requests also from the content script, while Chrome not. For this reason all the XHR requests are performed from the background script (...).
-* Chrome allows passing XHR data inside a CustomEvent from the content script to the page script, while Firefox not (it is necessary to use the `window.postMessage` function).
+* Firefox allows cross-origin requests also from the content script, [while Chrome not](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches). For this reason all the XHR requests are performed from the background script.
+* Chrome allows passing XHR data inside a CustomEvent from the content script to the page script, while Firefox not (it is necessary to use the [`window.postMessage` function](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#Communicating_with_the_web_page)).
 
-On manifest.json it is necessary to add the "*://localhost/*" [permission](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions) in order to perform cross-origin requests from the background script.
+### manifest.json
+
+On manifest.json it is necessary to add the `*://localhost/*` [permission](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/permissions) in order to perform cross-origin requests from the background script.
 
 ### Development
 
-For development on Firefox this tool is quite useful:
+For development on Firefox the [web-ext tool](https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/) is quite useful:
 
     web-ext run
