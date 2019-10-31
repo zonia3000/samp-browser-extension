@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Send Table</title>
+  <meta charset="utf-8" />
+</head>
+
+<body>
+  <script src="../samp-extension-caller.js"></script>
+  <script src="../samp.js"></script>
+  <script>
+    // URL of table to send.
+    var tableUrl = "http://astrojs.github.io/sampjs/examples/messier.xml";
+
+    // Broadcasts a table given a hub connection.
+    var send = function(connection) {
+      var msg = new samp.Message("table.load.votable", {
+        "url": tableUrl
+      });
+      connection.notifyAll([msg]);
+    };
+
+    // Adjusts page content depending on whether the hub exists or not.
+    var configureSampEnabled = function(isHubRunning) {
+      document.getElementById("sendButt").hidden = !isHubRunning;
+    };
+
+    // Arrange for document to be adjusted for presence of hub every 2 sec.
+    var connector;
+    document.addEventListener('SampBrowserExtensionLoaded', event => {
+      connector = new samp.Connector("Sender");
+      connector.onHubAvailability(configureSampEnabled, 2000);
+      onunload = function() {
+        connector.unregister();
+      };
+    });
+  </script>
+
+  <p>Sends a table when the button is pressed.
+    Registration is performed only when required (just prior to attempting
+    the send, if not registered already).
+    The button is only visible when a hub is running.
+  </p>
+
+  <p><b>I have a table.</b>
+    <button id="sendButt" type="button" onclick="connector.runWithConnection(send)">Send It!</button>
+  </p>
+
+</body>
+
+</html>
