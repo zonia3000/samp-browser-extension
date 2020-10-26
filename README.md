@@ -51,13 +51,19 @@ Have a look at the extension-examples folder to see the modified version of offi
 
 In samp.js the `XmlRpcClient.createXHR` function creates an XHR facade. This function has been modified adding a facade provided by the samp-extension-caller.js script.
 
-All the XHR functions are translated into asynchrous [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) that the extension content script can listen. The content script then communicates with the background script using the [runtime API](https://developer.mozilla.org/it/docs/Mozilla/Add-ons/WebExtensions/API/runtime).
+All the XHR functions are translated into asynchrous [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) that the extension content script can listen.
+
+Extension modules communicate according to the following diagram:
 
     page script <--> content script <--> background script
+
+* Communication from content script to background script uses [runtime API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendMessage)
+* Communication from background script to content script using [tabs API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/sendMessage)
 
 Differences encountered between Firefox and Chrome:
 
 * Runtime API has different prefix (`browser.runtime` vs `chrome.runtime`)
+* Tabs API has different prefix (`browser.tabs` vs `chrome.tabs`)
 * Firefox allows cross-origin requests also from the content script, [while Chrome not](https://www.chromium.org/Home/chromium-security/extension-content-script-fetches). For this reason all the XHR requests are performed from the background script.
 * Chrome allows passing XHR data inside a CustomEvent from the content script to the page script, while Firefox not (it is necessary to use the [`window.postMessage` function](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#Communicating_with_the_web_page)).
 

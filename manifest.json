@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "samp-browser-extension",
   "description": "SAMP Browser Extension",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "background": {
     "scripts": [
       "background_script.js"
