@@ -4,7 +4,15 @@ This repository contains a browser extension that handle SAMP XMLHttpRequests in
 
 Even if the [browser extension standard](https://browserext.github.io/browserext/) has been used, we encountered some different behaviors between Firefox and Chrome (see "SAMP Extension developer notes" section).
 
-Tested on:
+## Tested on
+
+### Version 0.0.2
+
+* Chrome 86
+* Firefox 82
+* Safari 14
+
+### Version 0.0.1
 
 * Chrome 77
 * Firefox 69
@@ -26,6 +34,22 @@ Select "This Firefox" --> "Load Temporary Add-on"
 "Menu" --> "More Tool" --> "Extensions"
 
 Then toggle the "Developer mode" button (top right), click on "Load unpacked" and select the repository folder.
+
+### Safari
+
+Safari extensions need to be packaged via Xcode (version 12 or higher), so an Apple Developer Account is needed. You can find a packaged result in the [releases section](https://github.com/zonia3000/samp-browser-extension/releases).
+
+Package has been created using the following command:
+
+    xcrun safari-web-extension-converter <extension-directory>
+
+To install the extension enable the development options:
+
+"Develop" --> "Preferences" --> "Advanced", select "Show Develop"
+
+Under the "Develop" menu select also "Allow Unsigned Extensions".
+
+The extension needs to be re-enabled every time Safari is restarted.
 
 ## SAMP Developer notes
 
